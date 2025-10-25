@@ -1,0 +1,34 @@
+姓名: 部署到GitHub页面
+
+在……之上:
+推:
+分支机构: [ "主要" ]
+workflow_dispatch:
+
+权限:
+内容: 读
+页面: 写
+id-token: 写
+
+并发性:
+组: "页面"
+正在取消: 假的
+
+工作:
+部署:
+环境:
+姓名: github-pages
+URL: ${{steps.deployment.outputs.page_url}}
+run-on: ubuntu-最新
+步骤:
+      - 姓名: 结帐
+uses: 操作/结帐@v4
+      - 姓名: 安装页面
+uses: 操作/configure-pages@v4
+      - 姓名: 上传工件
+uses: action/upload-pages-artifact@v3
+和……一起:
+路径: '.'
+      - 姓名: 部署到GitHub页面
+身份标识: 部署
+uses: 操作/部署页面@v4
