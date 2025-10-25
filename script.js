@@ -1,52 +1,74 @@
-// 平滑滚动函数
-function scrollToSection(sectionId) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+function toggleTheme() {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+}
+
+function likeResource(id) {
+    let likes = parseInt(localStorage.getItem(`likes-${id}`) || 0);
+    likes++;
+    localStorage.setItem(`likes-${id}`, likes);
+    document.getElementById(`likes-${id}`).textContent = likes;
+}
+
+function favResource(id) {
+    let favs = parseInt(localStorage.getItem(`favs-${id}`) || 0);
+    favs++;
+    localStorage.setItem(`favs-${id}`, favs);
+    document.getElementById(`favs-${id}`).textContent = favs;
+}
+
+function downloadResource(id) {
+    let dls = parseInt(localStorage.getItem(`dls-${id}`) || 0);
+    dls++;
+    localStorage.setItem(`dls-${id}`, dls);
+    document.getElementById(`dls-${id}`).textContent = dls;
+}
+
+function addComment(id) {
+    const commentInput = document.getElementById(`comment-${id}`);
+    const comment = commentInput.value.trim();
+    if (comment) {
+        const commentsDiv = document.getElementById(`comments-${id}`);
+        const commentElem = document.createElement('div');
+        commentElem.textContent = comment;
+        commentElem.style.padding = '5px';
+        commentElem.style.borderBottom = '1px solid #444';
+        commentsDiv.appendChild(commentElem);
+        commentInput.value = '';
+        
+        let comments = JSON.parse(localStorage.getItem(`comments-${id}`) || '[]');
+        comments.push(comment);
+        localStorage.setItem(`comments-${id}`, JSON.stringify(comments));
     }
 }
 
-// 页面加载完成后执行
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DevPool 网站加载完成！');
-    
-    // 为导航链接添加平滑滚动
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            scrollToSection(targetId);
-        });
-    });
-    
-    // 导航栏滚动效果
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        }
-    });
-    
-    // 资源卡片点击效果
-    const resourceCards = document.querySelectorAll('.resource-card');
-    resourceCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            if (!e.target.closest('.card-link')) {
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-            }
-        });
-    });
-});
+function showLogin() {
+    alert('登录功能 - 开发中');
+}
 
-// 控制台欢迎信息
-console.log('%c🚀 欢迎来到 DevPool！', 'color: #2563eb; font-size: 16px; font-weight: bold;');
-console.log('%c💻 发现优质开发资源，提升编程效率！', 'color: #7c3aed; font-size: 14px;');
+function showUpload() {
+    alert('上传功能 - 开发中');
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') document.body.classList.add('light');
+    
+    // 加载保存的数据
+    for (let i = 1; i <= 1; i++) {
+        document.getElementById(`likes-${i}`).textContent = localStorage.getItem(`likes-${i}`) || 0;
+        document.getElementById(`favs-${i}`).textContent = localStorage.getItem(`favs-${i}`) || 0;
+        document.getElementById(`dls-${i}`).textContent = localStorage.getItem(`dls-${i}`) || 0;
+        
+        const comments = JSON.parse(localStorage.getItem(`comments-${i}`) || '[]');
+        const commentsDiv = document.getElementById(`comments-${i}`);
+        comments.forEach(comment => {
+            const commentElem = document.createElement('div');
+            commentElem.textContent = comment;
+            commentElem.style.padding = '5px';
+            commentElem.style.borderBottom = '1px solid #444';
+            commentsDiv.appendChild(commentElem);
+        });
+    }
+});
