@@ -1,33 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>MC资源站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC资源分享站</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-logo">MC资源站</div>
-        <div class="nav-buttons">
-            <button class="btn" onclick="toggleTheme()">切换主题</button>
-            <button class="btn" onclick="showLogin()">登录</button>
-            <button class="btn" onclick="showUpload()">上传</button>
+        <div class="nav-brand">
+            <i class="fas fa-cube"></i>
+            <span>MC资源站</span>
+        </div>
+        
+        <div class="nav-tools">
+            <div class="toolbar">
+                <button class="tool-btn" data-category="all">
+                    <i class="fas fa-th"></i> 全部
+                </button>
+                <button class="tool-btn" data-category="mod">
+                    <i class="fas fa-puzzle-piece"></i> 模组
+                </button>
+                <button class="tool-btn" data-category="texture">
+                    <i class="fas fa-image"></i> 材质
+                </button>
+                <button class="tool-btn" data-category="map">
+                    <i class="fas fa-map"></i> 地图
+                </button>
+            </div>
+        </div>
+
+        <div class="nav-actions">
+            <button class="btn btn-primary" onclick="showUploadForm()">
+                <i class="fas fa-upload"></i> 上传资源
+            </button>
+            <button class="btn btn-secondary" onclick="showLoginForm()">
+                <i class="fas fa-user"></i> 登录
+            </button>
         </div>
     </nav>
-    
-    <div class="container">
-        <div class="resource-card">
-            <h3>高清材质包</h3>
-            <p>128x分辨率材质</p>
-            <div class="card-actions">
-                <button class="btn like-btn" onclick="likeResource(1)">点赞 <span id="likes-1">0</span></button>
-                <button class="btn fav-btn" onclick="favResource(1)">收藏 <span id="favs-1">0</span></button>
-                <button class="btn dl-btn" onclick="downloadResource(1)">下载 <span id="dls-1">0</span></button>
-            </div>
-            <div class="comments">
-                <input type="text" placeholder="添加评论" id="comment-1">
-                <button onclick="addComment(1)">提交</button>
-                <div id="comments-1"></div>
-            </div>
+
+    <main class="container">
+        <div class="resources-grid" id="resourcesGrid">
+            <!-- 资源将通过JavaScript动态加载 -->
+        </div>
+    </main>
+
+    <!-- 上传模态框 -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <h3>上传新资源</h3>
+            <form id="uploadForm">
+                <input type="text" placeholder="资源名称" required>
+                <select required>
+                    <option value="">选择分类</option>
+                    <option value="mod">模组</option>
+                    <option value="texture">材质包</option>
+                    <option value="map">地图</option>
+                    <option value="skin">皮肤</option>
+                </select>
+                <textarea placeholder="资源描述" required></textarea>
+                <input type="url" placeholder="下载链接" required>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">上传</button>
+                    <button type="button" onclick="hideUploadForm()" class="btn btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3>用户登录</h3>
+            <form id="loginForm">
+                <input type="text" placeholder="用户名" required>
+                <input type="password" placeholder="密码" required>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">登录</button>
+                    <button type="button" onclick="hideLoginForm()" class="btn btn-secondary">取消</button>
+                </div>
+            </form>
         </div>
     </div>
 
