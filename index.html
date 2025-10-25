@@ -1,276 +1,35 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodePool | 开发者资源池</title>
+    <title>MC资源站</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 导航栏 -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-code"></i>
-                <span>CodePool</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#resources">资源</a></li>
-                <li><a href="#contribute">贡献</a></li>
-                <li><a href="#about">关于</a></li>
-            </ul>
+        <div class="nav-logo">MC资源站</div>
+        <div class="nav-buttons">
+            <button class="btn" onclick="toggleTheme()">切换主题</button>
+            <button class="btn" onclick="showLogin()">登录</button>
+            <button class="btn" onclick="showUpload()">上传</button>
         </div>
     </nav>
-
-    <!-- 英雄区域 -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>挖掘优质<span class="highlight">开发资源</span></h1>
-            <p>汇聚全网精选编程工具、库、框架和教程，提升你的开发效率</p>
-            <div class="hero-buttons">
-                <button class="btn primary" onclick="scrollToSection('resources')">探索资源</button>
-                <button class="btn secondary" onclick="toggleTheme()">
-                    <i class="fas fa-moon"></i> 深色模式
-                </button>
+    
+    <div class="container">
+        <div class="resource-card">
+            <h3>高清材质包</h3>
+            <p>128x分辨率材质</p>
+            <div class="card-actions">
+                <button class="btn like-btn" onclick="likeResource(1)">点赞 <span id="likes-1">0</span></button>
+                <button class="btn fav-btn" onclick="favResource(1)">收藏 <span id="favs-1">0</span></button>
+                <button class="btn dl-btn" onclick="downloadResource(1)">下载 <span id="dls-1">0</span></button>
+            </div>
+            <div class="comments">
+                <input type="text" placeholder="添加评论" id="comment-1">
+                <button onclick="addComment(1)">提交</button>
+                <div id="comments-1"></div>
             </div>
         </div>
-    </section>
-
-    <!-- 数据统计 -->
-    <section class="stats">
-        <div class="container">
-            <div class="stat-grid">
-                <div class="stat-card">
-                    <i class="fas fa-box-open"></i>
-                    <h3>127</h3>
-                    <p>精选资源</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-tags"></i>
-                    <h3>15</h3>
-                    <p>分类标签</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-download"></i>
-                    <h3>2,841</h3>
-                    <p>总下载量</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 资源展示区 -->
-    <section id="resources" class="resources">
-        <div class="container">
-            <h2>热门资源</h2>
-            
-            <div class="resource-grid">
-                <!-- 资源卡片 1 -->
-                <div class="resource-card" data-category="frontend">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fab fa-vuejs"></i>
-                        </div>
-                        <div>
-                            <h3>Vue.js 文档</h3>
-                            <span class="card-category">前端框架</span>
-                        </div>
-                    </div>
-                    <p>渐进式 JavaScript 框架，易学易用，性能出色。</p>
-                    <div class="card-tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">框架</span>
-                        <span class="tag">现代</span>
-                    </div>
-                    <a href="https://vuejs.org/" target="_blank" class="card-link">
-                        访问网站 <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <!-- 资源卡片 2 -->
-                <div class="resource-card" data-category="backend">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fab fa-node-js"></i>
-                        </div>
-                        <div>
-                            <h3>Node.js 指南</h3>
-                            <span class="card-category">后端运行时</span>
-                        </div>
-                    </div>
-                    <p>基于 Chrome V8 引擎的 JavaScript 运行环境。</p>
-                    <div class="card-tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">服务端</span>
-                        <span class="tag">高效</span>
-                    </div>
-                    <a href="https://nodejs.org/" target="_blank" class="card-link">
-                        访问网站 <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <!-- 资源卡片 3 -->
-                <div class="resource-card" data-category="tools">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div>
-                            <h3>VS Code</h3>
-                            <span class="card-category">开发工具</span>
-                        </div>
-                    </div>
-                    <p>轻量级但功能强大的源代码编辑器。</p>
-                    <div class="card-tags">
-                        <span class="tag">编辑器</span>
-                        <span class="tag">跨平台</span>
-                        <span class="tag">免费</span>
-                    </div>
-                    <a href="https://code.visualstudio.com/" target="_blank" class="card-link">
-                        访问网站 <i class="fas fa-arrow-right"></i>
-                    </a>
-</div></div>
-
-                <!-- 资源卡片 4 -->
-                <div class="resource-card" data-category="tools">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fab fa-git-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Git 教程</h3>
-                            <span class="card-category">版本控制</span>
-                        </div>
-                    </div>
-                    <p>分布式版本控制系统，高效管理代码版本。</p>
-                    <div class="card-tags">
-                        <span class="tag">版本控制</span>
-                        <span class="tag">协作</span>
-                        <span class="tag">必备</span>
-                    </div>
-                    <a href="https://git-scm.com/" target="_blank" class="card-link">
-                        访问网站 <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <!-- 资源卡片 5 -->
-                <div class="resource-card" data-category="frontend">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fab fa-react"></i>
-                        </div>
-                        <div>
-                            <h3>React 文档</h3>
-                            <span class="card-category">前端库</span>
-                        </div>
-                    </div>
-                    <p>用于构建用户界面的 JavaScript 库。</p>
-                    <div class="card-tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">组件化</span>
-                        <span class="tag">生态丰富</span>
-                    </div>
-                    <a href="https://reactjs.org/" target="_blank" class="card-link">
-                        访问网站 <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <!-- 资源卡片 6 -->
-                <div class="resource-card" data-category="design">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <div>
-                            <h3>Figma 资源</h3>
-                            <span class="card-category">设计工具</span>
-                        </div>
-                    </div>
-                    <p>协作式界面设计工具，强大的原型功能。</p>
-                    <div class="card-tags">
-                        <span class="tag">设计</span>
-                        <span class="tag">协作</span>
-                        <span class="tag">UI/UX</span>
-                    </div>
-                    <a href="https://www.figma.com/" target="_blank" class="card-link">
-                        访问网站 <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 贡献资源区 -->
-    <section id="contribute" class="contribute">
-        <div class="container">
-            <h2>贡献资源</h2>
-            <p>发现好的资源？欢迎分享给更多开发者！</p>
-            
-            <form class="contribute-form" id="resourceForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" id="resourceName" placeholder="资源名称" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="url" id="resourceUrl" placeholder="资源链接" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <select id="resourceCategory" required>
-                        <option value="">选择分类</option>
-                        <option value="frontend">前端开发</option>
-                        <option value="backend">后端开发</option>
-                        <option value="tools">开发工具</option>
-                        <option value="design">设计资源</option>
-                        <option value="mobile">移动开发</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <textarea id="resourceDescription" placeholder="资源描述（为什么推荐这个资源）" rows="4" required></textarea>
-                </div>
-                
-                <button type="submit" class="btn primary">
-                    <i class="fas fa-plus"></i> 提交资源
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><i class="fas fa-code"></i> CodePool</h3>
-                    <p>为开发者服务的资源分享平台</p>
-                </div>
-                <div class="footer-section">
-                    <h4>快速链接</h4>
-                    <ul>
-                        <li><a href="#home">首页</a></li>
-                        <li><a href="#resources">资源浏览</a></li>
-                        <li><a href="#contribute">贡献资源</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>技术栈</h4>
-                    <ul>
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                        <li>JavaScript</li>
-                        <li>GitHub Pages</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CodePool. 构建于 GitHub Pages.</p>
-            </div>
-        </div>
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
